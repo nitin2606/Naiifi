@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+android:color="@color/rectangle_1_color">
+
+
+<!--this creates the mask with the ripple effect-->
+<item
+    android:id="@+id/mask"
+    android:drawable="@android:color/white" >
+
+    <shape
+        android:shape="rectangle"
+        android:innerRadius="5dp"/>
+
+
+
+
+</item>
+
+</ripple>
+
