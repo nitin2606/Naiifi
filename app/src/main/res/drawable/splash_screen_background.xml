@@ -6,6 +6,6 @@
 
         <bitmap
             android:gravity="center_horizontal"
-            android:src="@drawable/google_icon" />
+            android:src="@drawable/logo_naiifi_whitebg" />
     </item>
 </layer-list>

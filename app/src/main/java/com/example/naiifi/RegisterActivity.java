@@ -3,15 +3,13 @@ package com.example.naiifi;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.os.HandlerThread;
-import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -20,9 +18,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
-
 import com.example.naiifi.databinding.ActivityRegisterBinding;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -33,9 +29,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
+import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -49,6 +47,8 @@ public class RegisterActivity extends AppCompatActivity {
     private String verificationId;
     private Dialog otpDialog , loginDialog ;
     private FirebaseUser user ;
+
+    private HashMap<String , Integer> countMap = new HashMap<>() ;
 
     private static final String TAG  = "naiifiTag";
 
@@ -71,10 +71,21 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+                if(s.length()<10 && s.length()>10){
+                    activityRegisterBinding.btnGetOtp.setVisibility(View.GONE);
+                }
+
+
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(s.length()<10 && s.length()>10){
+                    activityRegisterBinding.btnGetOtp.setVisibility(View.GONE);
+                }
+
+
 
             }
 
@@ -93,7 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
                         public void run() {
                             synchronized (this) {
                                 try {
-                                    wait(2000);
+                                    readPhone(s.toString().trim());
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -103,20 +114,36 @@ public class RegisterActivity extends AppCompatActivity {
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    activityRegisterBinding.txtPhoneProgress.setVisibility(View.GONE);
-                                    activityRegisterBinding.btnGetOtp.setVisibility(View.VISIBLE);
+
+                                    /*if(countMap.get("c")>0){
+                                        activityRegisterBinding.txtMobile.setError("Mobile number already in use !");
+                                    }
+                                    else if(countMap.get("d")>0){
+                                        activityRegisterBinding.txtMobile.setError("Account already exists , Login to continue .");
+
+                                    }
+                                    else if(countMap.get("c")==0 && countMap.get("d")==0){
+
+                                        activityRegisterBinding.btnGetOtp.setVisibility(View.VISIBLE);
+
+                                    }*/
                                 }
                             });
-
 
                         }
                     };
                     Thread thread = new Thread(runnable);
                     thread.start();
+
+
+                    System.out.println("Thread State : "+thread.getState());
                 }
                 else if(s.length()>10){
                     activityRegisterBinding.txtPhoneProgress.setVisibility(View.GONE);
                     activityRegisterBinding.txtMobile.setError("Phone No Invalid !");
+                }
+                else if(s.length()<10){
+                    activityRegisterBinding.btnGetOtp.setVisibility(View.GONE);
                 }
 
             }
@@ -145,10 +172,17 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+
+
+
+
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+
 
             }
 
@@ -175,8 +209,81 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+    private void readPhone(String phoneNo){
+
+
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Salons");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                int c = 0;
+                for(DataSnapshot d : snapshot.getChildren()){
+                    if(d.getKey().equals(phoneNo)){
+                        c=c+1;
+                    }
+                }
+                countMap.put("c", c);
+
+
+                databaseReference2 = FirebaseDatabase.getInstance().getReference("userData");
+                databaseReference2.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        int d = 0;
+
+                        for(DataSnapshot d1 : snapshot.getChildren()){
+                            if(d1.getKey().equals(phoneNo)){
+                                d=d+1;
+                            }
+                        }
+                        countMap.put("d", d);
+
+
+
+                        if(countMap.get("c")>0){
+                            activityRegisterBinding.txtPhoneProgress.setVisibility(View.GONE);
+                            activityRegisterBinding.txtMobile.setError("Phone number already in use !");
+                        }
+                        else if(countMap.get("d")>0){
+                            activityRegisterBinding.txtPhoneProgress.setVisibility(View.GONE);
+                            activityRegisterBinding.txtMobile.setError("Account already exists ! login to continue .");
+                        }
+                        else if(countMap.get("c")==0 && countMap.get("d")==0){
+                            activityRegisterBinding.txtPhoneProgress.setVisibility(View.GONE);
+                            activityRegisterBinding.btnGetOtp.setVisibility(View.VISIBLE);
+
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                        Log.d(TAG, "onCancelled: Error In Searching For PhoneNo"+error);
+
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        System.out.println("countMap out of function : "+countMap);
+
 
     }
+
 
     private void gene_dialog(){
 
@@ -333,6 +440,12 @@ public class RegisterActivity extends AppCompatActivity {
 
             String firebaseId = firebaseAuth.getCurrentUser().getUid();
 
+            SharedPreferences sharedPreferences = getSharedPreferences("userData",MODE_PRIVATE);
+            SharedPreferences.Editor myEditor = sharedPreferences.edit();
+            myEditor.putString("phoneNo",phoneNumber);
+            myEditor.putString("firebaseId",firebaseId);
+            myEditor.commit();
+
             HashMap<String ,Object> map = new HashMap<>();
 
             map.put("phoneNumber",phoneNumber);
@@ -382,6 +495,10 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(RegisterActivity.this, "SignUp Failed ! Try Again .", Toast.LENGTH_SHORT).show();
             }
         });
+
+    }
+
+    private void fetchLocation(){
 
     }
 

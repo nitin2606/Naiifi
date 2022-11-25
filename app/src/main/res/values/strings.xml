@@ -3,20 +3,11 @@
 
 
     <string name="Welcome_Text">Welcome To Naiifi</string>
-    <string name="Name_Text">Enter Your Name</string>
-    <string name="PhoneNo_Text">Enter Your Phone No</string>
-    <string name="Otp_Text">Enter Otp</string>
     <string name="auto_detect">Auto detecting otp</string>
-    <string name="sign_in_with">Or Sign In With</string>
-    <string name="Get_otp">Get Otp</string>
-    <string name="Auto_Detect_OTP">Auto Detecting OTP</string>
-    <string name="New_User_Text">New To Naiifi ? Sign Up Here</string>
+    <string name="New_User_Text">New To Naiifi ?</string>
+    <string name="sign_up_here">Sign Up Here</string>
     <string name="Already_User_Text">Already A User ?</string>
     <string name="Sign_In_Here">Sign In Here</string>
-    <string name="continue_google">Register With Google</string>
-    <string name="continue_otp">Register With Otp</string>
-    <string name="email_text">Enter Your Id</string>
-    <string name="age_text">Enter Your Age</string>
     <string name="resend_otp">Resend Otp</string>
 
 

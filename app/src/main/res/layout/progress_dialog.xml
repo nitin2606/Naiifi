@@ -19,7 +19,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@android:color/transparent"
-            gbp:SpinKit_Color="@color/rectangle_2_color"
+            gbp:SpinKit_Color="@color/color_blue_new"
             gbp:layout_constraintBottom_toBottomOf="parent"
             gbp:layout_constraintEnd_toEndOf="parent"
             gbp:layout_constraintStart_toStartOf="parent"

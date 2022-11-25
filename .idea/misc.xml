@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-nodpi/_bg__android_large___1_shape.xml" value="0.288" />
         <entry key="app/src/main/res/drawable-nodpi/ellipse_1_shape.xml" value="0.324" />
         <entry key="app/src/main/res/drawable-nodpi/frame_bg.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable-nodpi/rectangle_1_shape.xml" value="0.324" />
@@ -11,19 +12,25 @@
         <entry key="app/src/main/res/drawable-nodpi/signin_bg.xml" value="0.324" />
         <entry key="app/src/main/res/drawable/click_effect.xml" value="0.279" />
         <entry key="app/src/main/res/drawable/ic_aim.xml" value="0.324" />
+        <entry key="app/src/main/res/drawable/ic_filter.xml" value="0.288" />
+        <entry key="app/src/main/res/drawable/ic_map.xml" value="0.29" />
+        <entry key="app/src/main/res/drawable/ic_search.xml" value="0.288" />
         <entry key="app/src/main/res/drawable/rectangle_1_shape.xml" value="0.324" />
         <entry key="app/src/main/res/drawable/rectangle_3_shape.xml" value="0.324" />
+        <entry key="app/src/main/res/drawable/rectangle_5_shape.xml" value="0.1665" />
         <entry key="app/src/main/res/drawable/splash_screen_background.xml" value="0.181" />
+        <entry key="app/src/main/res/drawable/text_box_background.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/textbox_fill.xml" value="0.279" />
         <entry key="app/src/main/res/drawable/textbox_outline.xml" value="0.323" />
         <entry key="app/src/main/res/drawable/transparent_background.xml" value="0.279" />
         <entry key="app/src/main/res/layout/activity_dash_board.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_intro.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.1933534743202417" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/progress_dialog.xml" value="0.3203125" />
+        <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.3182291666666667" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.324" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.324" />
       </map>
