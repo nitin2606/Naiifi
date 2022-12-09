@@ -9,6 +9,8 @@
     <string name="Already_User_Text">Already A User ?</string>
     <string name="Sign_In_Here">Sign In Here</string>
     <string name="resend_otp">Resend Otp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

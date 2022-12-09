@@ -1,7 +1,6 @@
 package Codes;
 
 
-
 import android.util.Log;
 import androidx.annotation.NonNull;
 import com.google.firebase.auth.FirebaseAuth;
@@ -12,8 +11,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
-import Models.FirebaseClass;
-
 
 
 public class FetchSalons {
@@ -31,12 +28,19 @@ public class FetchSalons {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    FirebaseClass firebaseClass = snapshot.getValue(FirebaseClass.class);
-
-                    Log.d("newData", "onDataChange: "+firebaseClass.getName());
+                String value = snapshot.getValue().toString();
+                try{
+                    String[] data = value.split("");
+                    Log.d("arrayData", "onDataChange: "+ data[0]);
 
                 }
+                catch (Exception e){
+                    Log.d("arrayExcep", "onDataChange: "+e.getMessage());
+                }
+
+
+                Log.d("newData", "onDataChange: "+value);
+
 
 
             }
@@ -46,6 +50,14 @@ public class FetchSalons {
 
             }
         });
+
+    }
+
+    public void fetchWithFilter(String filter){
+
+    }
+
+    public void fetchWithMultipleFilters(String[] filterArr){
 
     }
 

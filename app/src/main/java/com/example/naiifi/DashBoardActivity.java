@@ -4,19 +4,23 @@ package com.example.naiifi;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import com.example.naiifi.databinding.ActivityDashBoardBinding;
@@ -27,15 +31,26 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import Adapters.SalonAdapter;
 import Codes.Distance;
 import Codes.FetchSalons;
+import Fragments.AppointmentFragment;
+import Fragments.HomeFragment;
+import Fragments.MapFragment;
+import Fragments.ProfileFragment;
+import Fragments.SettingsFragment;
 import Models.SalonData;
+
+
 
 public class DashBoardActivity extends AppCompatActivity {
 
@@ -56,7 +71,9 @@ public class DashBoardActivity extends AppCompatActivity {
     private SalonAdapter salonAdapter;
     private ArrayList<SalonData> salonDataArrayList = new ArrayList<>();
 
-    private FetchSalons fetchSalons ;
+    private FetchSalons fetchSalons;
+
+    private Fragment navFragment;
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -72,8 +89,13 @@ public class DashBoardActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(getResources().getColor(R.color.dashboard_background));
         getWindow().setNavigationBarColor(getResources().getColor(R.color.color_blue));
 
+        HomeFragment homeFragment = new HomeFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, homeFragment, "");
+        fragmentTransaction.commit();
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+
+       /*LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         activityDashBoardBinding.SalonRecyclerView.setLayoutManager(layoutManager);
         salonAdapter = new SalonAdapter(salonDataArrayList, this);
         activityDashBoardBinding.SalonRecyclerView.setAdapter(salonAdapter);
@@ -88,7 +110,46 @@ public class DashBoardActivity extends AppCompatActivity {
         salonDataArrayList.add(new SalonData("DCBA", "IIITDMJ", "9 KM", "abcde", false));
         salonDataArrayList.add(new SalonData("EFGH", "IIITDMJ", "10 KM", "qwerty", true));
 
-        salonAdapter.notifyDataSetChanged();
+        salonAdapter.notifyDataSetChanged();*/
+
+        activityDashBoardBinding.bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()){
+
+                    case R.id.home:
+                        navFragment = new HomeFragment();
+                        break;
+
+                    case R.id.map:
+                        navFragment = new MapFragment();
+                        break;
+
+                    case R.id.appointment:
+                        navFragment = new AppointmentFragment();
+                        break;
+
+                    case R.id.profile:
+                        navFragment = new ProfileFragment();
+                        break;
+
+                    case R.id.setting:
+                        navFragment = new SettingsFragment();
+                        break;
+
+
+
+                }
+                if (navFragment != null) {
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_container, navFragment, "");
+                    fragmentTransaction.commit();
+                }
+                return true;
+
+            }
+        });
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
@@ -99,10 +160,15 @@ public class DashBoardActivity extends AppCompatActivity {
         fetchSalons = new FetchSalons();
         fetchSalons.fetchAll();
 
+        Log.d("cityTag", "onCreate: "+fetchCity());
+
+
+
+
     }
 
     private HashMap<String, Double> accessSharedPreference(String preferenceName){
-        SharedPreferences sharedPreferences = getSharedPreferences(preferenceName, MODE_APPEND);
+        SharedPreferences sharedPreferences = getSharedPreferences(preferenceName, MODE_PRIVATE);
 
         float latitude = sharedPreferences.getFloat("latitude",0);
         float longitude = sharedPreferences.getFloat("longitude",0);
@@ -123,6 +189,23 @@ public class DashBoardActivity extends AppCompatActivity {
         myEditor.putFloat("longitude", (float) Longitude);
         myEditor.commit();
 
+    }
+
+    private String fetchCity(){
+
+        String cityName = "";
+        Double latitude = accessSharedPreference("userLocation").get("latitude");
+        Double longitude = accessSharedPreference("userLocation").get("longitude");
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude ,1);
+            cityName = addresses.get(0).getLocality();
+            //Log.d("cityTag", "onCreate: "+cityName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return cityName;
     }
 
 
