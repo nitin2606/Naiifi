@@ -17,11 +17,11 @@
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/text_box_background"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
             android:layout_marginBottom="20dp"
+            android:background="@drawable/text_box_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -40,6 +40,273 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_bar"
             app:layout_constraintVertical_bias="0.0" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="4"
+            android:rowCount="2"
+            android:padding="5dp"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adRecyclerView"
+            app:layout_constraintVertical_bias="0.01999998">
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:background="@drawable/card_view_background">
+
+                <ImageView
+                    android:id="@+id/hairCut"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/card_view_background"
+                    android:layout_columnWeight="1"
+                    android:src="@drawable/ic_sample" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txtHairCut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textColor="@color/color_blue"
+                    android:text="Haircut"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:background="@drawable/card_view_background">
+
+                <ImageView
+                    android:id="@+id/styling"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/card_view_background"
+                    android:layout_columnWeight="1"
+                    android:src="@drawable/ic_sample" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txtStyling"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textColor="@color/color_blue"
+                    android:text="Styling"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:background="@drawable/card_view_background">
+
+                <ImageView
+                    android:id="@+id/hairDryer"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/card_view_background"
+                    android:layout_columnWeight="1"
+                    android:src="@drawable/ic_sample" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txtHairDryer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textColor="@color/color_blue"
+                    android:text="Hair Dryer"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:background="@drawable/card_view_background">
+
+                <ImageView
+                    android:id="@+id/shampoo"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/card_view_background"
+                    android:layout_columnWeight="1"
+                    android:src="@drawable/ic_sample" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txtShampoo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textColor="@color/color_blue"
+                    android:text="Shampoo"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:background="@drawable/card_view_background">
+
+                <ImageView
+                    android:id="@+id/hairSpa"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/card_view_background"
+                    android:layout_columnWeight="1"
+                    android:src="@drawable/ic_sample" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txtHairSpa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textColor="@color/color_blue"
+                    android:text="Hair Spa"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:background="@drawable/card_view_background">
+
+                <ImageView
+                    android:id="@+id/coloring"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/card_view_background"
+                    android:layout_columnWeight="1"
+                    android:src="@drawable/ic_sample" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txtColoring"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textColor="@color/color_blue"
+                    android:text="Coloring"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:background="@drawable/card_view_background">
+
+                <ImageView
+                    android:id="@+id/shaving"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/card_view_background"
+                    android:layout_columnWeight="1"
+                    android:src="@drawable/ic_sample" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txtShaving"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textColor="@color/color_blue"
+                    android:text="Shaving"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:background="@drawable/card_view_background">
+
+                <ImageView
+                    android:id="@+id/grooming"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_rowWeight="1"
+                    android:background="@drawable/card_view_background"
+                    android:layout_columnWeight="1"
+                    android:src="@drawable/ic_sample" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txtGrooming"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textColor="@color/color_blue"
+                    android:text="Grooming"/>
+
+
+            </LinearLayout>
+
+
+
+
+        </GridLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
