@@ -71,8 +71,6 @@ public class DashBoardActivity extends AppCompatActivity {
     private SalonAdapter salonAdapter;
     private ArrayList<SalonData> salonDataArrayList = new ArrayList<>();
 
-    private FetchSalons fetchSalons;
-
     private Fragment navFragment;
 
 
@@ -95,22 +93,9 @@ public class DashBoardActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
 
-       /*LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        activityDashBoardBinding.SalonRecyclerView.setLayoutManager(layoutManager);
-        salonAdapter = new SalonAdapter(salonDataArrayList, this);
-        activityDashBoardBinding.SalonRecyclerView.setAdapter(salonAdapter);
+        FetchSalons fetchSalons = new FetchSalons();
 
-        salonDataArrayList.add(new SalonData("ABCD", "IIITDMJ", "8 KM", "abcd", true));
-        salonDataArrayList.add(new SalonData("DCBA", "IIITDMJ", "9 KM", "abcde", false));
-        salonDataArrayList.add(new SalonData("EFGH", "IIITDMJ", "10 KM", "qwerty", true));
-        salonDataArrayList.add(new SalonData("ABCD", "IIITDMJ", "8 KM", "abcd", true));
-        salonDataArrayList.add(new SalonData("DCBA", "IIITDMJ", "9 KM", "abcde", false));
-        salonDataArrayList.add(new SalonData("EFGH", "IIITDMJ", "10 KM", "qwerty", true));
-        salonDataArrayList.add(new SalonData("ABCD", "IIITDMJ", "8 KM", "abcd", true));
-        salonDataArrayList.add(new SalonData("DCBA", "IIITDMJ", "9 KM", "abcde", false));
-        salonDataArrayList.add(new SalonData("EFGH", "IIITDMJ", "10 KM", "qwerty", true));
-
-        salonAdapter.notifyDataSetChanged();*/
+        fetchSalons.fetchAll();
 
         activityDashBoardBinding.bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -157,8 +142,7 @@ public class DashBoardActivity extends AppCompatActivity {
         //Log.d("MapLocation", "onCreate: "+accessSharedPreference("userLocation").get("latitude"));
 
 
-        fetchSalons = new FetchSalons();
-        fetchSalons.fetchAll();
+
 
         Log.d("cityTag", "onCreate: "+fetchCity());
 
@@ -199,7 +183,10 @@ public class DashBoardActivity extends AppCompatActivity {
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude ,1);
-            cityName = addresses.get(0).getLocality();
+            if(addresses.size() !=0){
+                cityName = addresses.get(0).getLocality();
+            }
+
             //Log.d("cityTag", "onCreate: "+cityName);
         } catch (IOException e) {
             e.printStackTrace();

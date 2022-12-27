@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.naiifi.databinding.ActivityLoginBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
@@ -397,10 +398,6 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
 
-
-                }
-                else{
-                    Toast.makeText(LoginActivity.this, "Sign Up Failed !", Toast.LENGTH_SHORT).show();
                 }
             }
         });

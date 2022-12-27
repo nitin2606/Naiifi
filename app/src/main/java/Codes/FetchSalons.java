@@ -11,16 +11,23 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
+import java.util.ArrayList;
+import Models.SalonListModel;
 
 
 public class FetchSalons {
 
     private FirebaseAuth firebaseAuth ;
     private DatabaseReference databaseReference ;
-    private FirebaseFirestore firebaseFirestore;
-    private FirebaseStorage firebaseStorage;
+    private FirebaseFirestore firebaseFirestore ;
+    private FirebaseStorage firebaseStorage ;
 
-    public void fetchAll(){
+    private SalonListModel salonListModel;
+
+
+    public ArrayList<SalonListModel> fetchAll(){
+
+        ArrayList<SalonListModel> salonList = new ArrayList<SalonListModel>();
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Salons");
 
@@ -28,20 +35,20 @@ public class FetchSalons {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                String value = snapshot.getValue().toString();
-                try{
-                    String[] data = value.split("");
-                    Log.d("arrayData", "onDataChange: "+ data[0]);
+                for(DataSnapshot child : snapshot.getChildren()){
+
+                    String key = child.getKey().toString();
+                    Log.d("iterator", "onDataChange: "+key);
+
+                    SalonListModel salonListModel = child.getValue(SalonListModel.class);
+                    //Log.d("modelTest", "onDataChange: "+salonListModel.getAnInt());
+
+                    salonList.add(salonListModel);
+
+
+                    Log.d("modelTest", "onDataChange: "+salonList.get(0).getName());
 
                 }
-                catch (Exception e){
-                    Log.d("arrayExcep", "onDataChange: "+e.getMessage());
-                }
-
-
-                Log.d("newData", "onDataChange: "+value);
-
-
 
             }
 
@@ -50,6 +57,12 @@ public class FetchSalons {
 
             }
         });
+
+
+        //Log.d("modelTest", "fetchAll: "+salonList.get(0).getName());
+        Log.d("array", "fetchAll: "+salonList.size());
+
+        return salonList;
 
     }
 

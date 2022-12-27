@@ -27,6 +27,10 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_splash);
 
+        /*firebaseAuth = FirebaseAuth.getInstance();
+        String uid = firebaseAuth.getUid();
+        Log.d("userData", "onCreate: UserID "+uid);*/
+
 
         Thread thread = new Thread(new Runnable() {
             @Override

@@ -1,5 +1,8 @@
 package Fragments;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -8,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,21 +22,28 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import Adapters.AutoScrollAdapter;
+import Adapters.SalonListAdapter;
+import Codes.FetchSalons;
 import Models.SalonAdModel;
-
+import Models.SalonListModel;
 
 
 public class HomeFragment extends Fragment {
 
     FragmentHomeBinding fragmentHomeBinding;
     private AutoScrollAdapter autoScrollAdapter;
+    private SalonListAdapter salonListAdapter;
 
     private ArrayList<SalonAdModel> salonAdList = new ArrayList<>();
+    private ArrayList<SalonListModel> salonList = new ArrayList<>();
 
     Timer timer;
     TimerTask timerTask;
     int position;
     LinearLayoutManager layoutManager;
+    LinearLayoutManager layoutManagerList;
+
+    private FetchSalons fetchSalons;
 
 
 
@@ -70,8 +82,6 @@ public class HomeFragment extends Fragment {
         });
 
 
-
-
         salonAdList.add(new SalonAdModel("ABCD", "25%", "xyz"));
         salonAdList.add(new SalonAdModel("QWER", "75%", "xyz"));
         salonAdList.add(new SalonAdModel("DFGH", "33%", "xyz"));
@@ -80,10 +90,43 @@ public class HomeFragment extends Fragment {
         salonAdList.add(new SalonAdModel("WSDE", "50%", "xyz"));
         autoScrollAdapter.notifyDataSetChanged();
 
+
+        fetchSalons = new FetchSalons();
+
+        layoutManagerList = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        fragmentHomeBinding.recyclerViewList.setLayoutManager(layoutManagerList);
+        salonListAdapter = new SalonListAdapter(fetchSalons.fetchAll(), getContext());
+        fragmentHomeBinding.recyclerViewList.setAdapter(salonListAdapter);
+
+
+
+        //Log.d("modelTest", "onCreateView: "+fetchSalons.fetchAll().get(0).getName());
+
+
+        /*Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_sample);
+        Bitmap resized = Bitmap. createScaledBitmap ( bitmap , 200 , 300 , true ) ;*/
+
+        /*int resized = R.drawable.ic_sample;
+
+
+        salonList.add(new SalonListMo salonList.add(new SalonListModel( /*String value = snapshot.getValue().toString();
+              "JSDSF", "ABCD", "8554788080", 3.50F, resized));del("JSDSF", "SDFD", "7554788081", 3.50F, resized));
+        salonList.add(new SalonListModel("JSDSF", "WSDE", "6554788082", 3.50F, resized));
+        salonList.add(new SalonListModel("JSDSF", "CDSX", "5554788083", 4.50F, resized));
+        salonList.add(new SalonListModel("JSDSF", "BFCD", "4554788084", 2.50F, resized));
+        salonList.add(new SalonListModel("JSDSF", "GFRT", "3554788085", 2.50F, resized));
+        salonList.add(new SalonListModel("JSDSF", "QASW", "2554788086", 1.50F, resized));
+        salonList.add(new SalonListModel("JSDSF", "CDEF", "1554788087", 3.50F, resized));*/
+        salonListAdapter.notifyDataSetChanged();
+
+
+
+
+
+
+
+
         return view;
-
-
-
 
     }
 

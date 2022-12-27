@@ -1,8 +1,6 @@
 package Adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +38,7 @@ public class AutoScrollAdapter extends RecyclerView.Adapter<AutoScrollAdapter.Vi
 
         holder.name.setText(salonAdModel.getSalonName());
         holder.discount.setText(salonAdModel.getDiscount());
-        holder.salonImage.setImageResource(R.drawable.dd);
+        holder.salonImage.setImageResource(R.drawable.ic_sample);
 
 
     }

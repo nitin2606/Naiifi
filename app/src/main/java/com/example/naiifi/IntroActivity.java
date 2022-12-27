@@ -2,6 +2,8 @@ package com.example.naiifi;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -68,6 +70,9 @@ public class IntroActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(IntroActivity.this, "Data Uploaded !", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(IntroActivity.this, DashBoardActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
         });
