@@ -42,7 +42,6 @@ import java.util.List;
 import java.util.Locale;
 import Adapters.SalonAdapter;
 import Codes.Distance;
-import Codes.FetchSalons;
 import Fragments.AppointmentFragment;
 import Fragments.HomeFragment;
 import Fragments.MapFragment;
@@ -93,9 +92,6 @@ public class DashBoardActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
 
-        FetchSalons fetchSalons = new FetchSalons();
-
-        fetchSalons.fetchAll();
 
         activityDashBoardBinding.bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override

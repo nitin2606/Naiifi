@@ -1,6 +1,7 @@
 package Codes;
 
 
+import android.os.AsyncTask;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,50 +22,76 @@ public class FetchSalons {
     private DatabaseReference databaseReference ;
     private FirebaseFirestore firebaseFirestore ;
     private FirebaseStorage firebaseStorage ;
-
     private SalonListModel salonListModel;
 
-
-    public ArrayList<SalonListModel> fetchAll(){
-
-        ArrayList<SalonListModel> salonList = new ArrayList<SalonListModel>();
-
-        databaseReference = FirebaseDatabase.getInstance().getReference("Salons");
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for(DataSnapshot child : snapshot.getChildren()){
-
-                    String key = child.getKey().toString();
-                    Log.d("iterator", "onDataChange: "+key);
-
-                    SalonListModel salonListModel = child.getValue(SalonListModel.class);
-                    //Log.d("modelTest", "onDataChange: "+salonListModel.getAnInt());
-
-                    salonList.add(salonListModel);
+    ArrayList<SalonListModel> salonList ;
 
 
-                    Log.d("modelTest", "onDataChange: "+salonList.get(0).getName());
+    public void fetchAll(){
+
+
+        new AsyncCaller().execute();
+    }
+
+    private class AsyncCaller extends AsyncTask<Void, Void, Void> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            //this method will be running on UI thread
+
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            salonList = new ArrayList<>();
+
+            databaseReference = FirebaseDatabase.getInstance().getReference("Salons");
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    for(DataSnapshot child : snapshot.getChildren()){
+
+                        String key = child.getKey().toString();
+                        Log.d("iterator", "onDataChange: "+key);
+
+                        SalonListModel salonListModel = child.getValue(SalonListModel.class);
+                        salonList.add(salonListModel);
+
+
+                    }
 
                 }
 
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+                }
+            });
 
 
-        //Log.d("modelTest", "fetchAll: "+salonList.get(0).getName());
-        Log.d("array", "fetchAll: "+salonList.size());
 
-        return salonList;
+
+            return null;
+
+        }
+
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            //this method will be running on UI thread
+
+        }
 
     }
+
+
+
 
     public void fetchWithFilter(String filter){
 

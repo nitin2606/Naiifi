@@ -1,9 +1,9 @@
 package Fragments;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -11,11 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import com.example.naiifi.R;
 import com.example.naiifi.databinding.FragmentHomeBinding;
 import java.util.ArrayList;
@@ -43,7 +38,7 @@ public class HomeFragment extends Fragment {
     LinearLayoutManager layoutManager;
     LinearLayoutManager layoutManagerList;
 
-    private FetchSalons fetchSalons;
+
 
 
 
@@ -91,33 +86,20 @@ public class HomeFragment extends Fragment {
         autoScrollAdapter.notifyDataSetChanged();
 
 
-        fetchSalons = new FetchSalons();
+
+        FetchSalons fetchSalons = new FetchSalons();
+        fetchSalons.fetchAll();
+
+
 
         layoutManagerList = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         fragmentHomeBinding.recyclerViewList.setLayoutManager(layoutManagerList);
-        salonListAdapter = new SalonListAdapter(fetchSalons.fetchAll(), getContext());
+        salonListAdapter = new SalonListAdapter(salonList, getContext());
         fragmentHomeBinding.recyclerViewList.setAdapter(salonListAdapter);
 
 
 
-        //Log.d("modelTest", "onCreateView: "+fetchSalons.fetchAll().get(0).getName());
 
-
-        /*Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_sample);
-        Bitmap resized = Bitmap. createScaledBitmap ( bitmap , 200 , 300 , true ) ;*/
-
-        /*int resized = R.drawable.ic_sample;
-
-
-        salonList.add(new SalonListMo salonList.add(new SalonListModel( /*String value = snapshot.getValue().toString();
-              "JSDSF", "ABCD", "8554788080", 3.50F, resized));del("JSDSF", "SDFD", "7554788081", 3.50F, resized));
-        salonList.add(new SalonListModel("JSDSF", "WSDE", "6554788082", 3.50F, resized));
-        salonList.add(new SalonListModel("JSDSF", "CDSX", "5554788083", 4.50F, resized));
-        salonList.add(new SalonListModel("JSDSF", "BFCD", "4554788084", 2.50F, resized));
-        salonList.add(new SalonListModel("JSDSF", "GFRT", "3554788085", 2.50F, resized));
-        salonList.add(new SalonListModel("JSDSF", "QASW", "2554788086", 1.50F, resized));
-        salonList.add(new SalonListModel("JSDSF", "CDEF", "1554788087", 3.50F, resized));*/
-        salonListAdapter.notifyDataSetChanged();
 
 
 
